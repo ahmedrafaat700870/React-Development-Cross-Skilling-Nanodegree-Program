@@ -43,11 +43,15 @@ export const ApiSlice = createSlice({
     SearchBooks: (state , action) => {
         state.SearchBooks = action.payload ;
     } , 
+    EmptySearchBooks: (state) => {
+      state.SearchBooks = [] ;
+    } , 
     AllMyBook: (state , action) => {
       state.AllMyBook = action.payload;
-    }
+    } , 
+ 
   },
 });
-export const { loading, success, failed, Currently, Want, Read , SearchBooks ,AllMyBook} =
+export const { loading, success, failed, Currently, Want, Read , SearchBooks ,AllMyBook , EmptySearchBooks} =
   ApiSlice.actions;
 export default ApiSlice.reducer;
