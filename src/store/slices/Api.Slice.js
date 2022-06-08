@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  SearchBooks: [] , 
   AllMyBook: [],
   MyBooks: {
     Currently: [],
@@ -40,18 +39,12 @@ export const ApiSlice = createSlice({
     Read: (state, action) => {
       state.MyBooks.Read = action.payload;
     },
-    SearchBooks: (state , action) => {
-        state.SearchBooks = action.payload ;
-    } , 
-    EmptySearchBooks: (state) => {
-      state.SearchBooks = [] ;
-    } , 
     AllMyBook: (state , action) => {
       state.AllMyBook = action.payload;
     } , 
  
   },
 });
-export const { loading, success, failed, Currently, Want, Read , SearchBooks ,AllMyBook , EmptySearchBooks} =
+export const { loading, success, failed, Currently, Want, Read  ,AllMyBook } =
   ApiSlice.actions;
 export default ApiSlice.reducer;
