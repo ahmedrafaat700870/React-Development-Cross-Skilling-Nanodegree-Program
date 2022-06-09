@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import Book from "./Book";
+import BookMain from "./BookMain";
 import { GetAllBooks } from "../store/API/Boock.api";
 import { Link } from "react-router-dom";
 const ListBocks = () => {
@@ -13,6 +13,7 @@ const ListBocks = () => {
     GetAllBooks(dispatch);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -25,7 +26,7 @@ const ListBocks = () => {
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {MyBooks.Currently.map((book) => (
-                  <Book
+                  <BookMain
                     key={book.id}
                     prop={{
                       url: book.imageLinks,
@@ -43,7 +44,7 @@ const ListBocks = () => {
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {MyBooks.Want.map((book) => (
-                  <Book
+                  <BookMain
                     key={book.id}
                     prop={{
                       url: book.imageLinks,
@@ -61,7 +62,7 @@ const ListBocks = () => {
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {MyBooks.Read.map((book) => (
-                  <Book
+                  <BookMain
                     key={book.id}
                     prop={{
                       url: book.imageLinks,

@@ -1,4 +1,5 @@
 import { Currently, Want, Read } from "../slices/Api.Slice";
+import * as FetchApi from '../../BooksAPI'
 export const Sort = (dispatch, AllBooks) => {
   const currently = [];
   const want = [];
@@ -16,3 +17,12 @@ export const Sort = (dispatch, AllBooks) => {
   dispatch(Want(want));
   dispatch(Read(read));
 };
+export const FilterBooks = async (AllBooks ) => {
+  if(!AllBooks.error) {
+    const MyBooks = await FetchApi.getAll()
+    const MyBooksIds = MyBooks.map(book => book.id)
+    return AllBooks.filter(book =>  !MyBooksIds.includes(book.id) )
+  } else {
+    return null ;
+  }
+}

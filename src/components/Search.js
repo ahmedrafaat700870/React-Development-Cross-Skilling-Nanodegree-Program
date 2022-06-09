@@ -1,18 +1,20 @@
 import { useDispatch } from "react-redux";
 import { SearchForBook } from "../store/API/Boock.api";
 import { useState, useEffect } from "react";
-import Book from "./Book";
 import { Link } from "react-router-dom";
+import Book from "./Book";
 const Search = () => {
   useEffect(() => {
     checkEmpty();
   }, []);
+  const [value , SetValue] = useState('');
   const [SearchBooks, SetSearchBooks] = useState([]);
   const [load, setLoad] = useState(false);
   const [empty, setEmpty] = useState(true);
   const dispatch = useDispatch();
   const AddBooks = async (e) => {
     const event = e.target.value;
+    SetValue(e.target.value);
     if (event) {
       setEmpty(false);
       setLoad(true);
@@ -52,6 +54,7 @@ const Search = () => {
             !load &&
             !empty &&
             SearchBooks.map((book) => (
+              // book.shelf === 'none' && 
               <Book
                 key={book.id}
                 prop={{
@@ -59,6 +62,8 @@ const Search = () => {
                   title: book.title,
                   author: book.authors,
                   book: book,
+                  SetSearchBooks:SetSearchBooks,
+                  value:value
                 }}
               />
             ))}

@@ -1,12 +1,17 @@
 import React from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { UpdateBook , SearchForBook} from "../store/API/Boock.api";
-const Book = ({prop}) => {
+import { UpdateBook ,GetAllBooks} from "../store/API/Boock.api";
+import { useNavigate } from "react-router-dom";
+const BookMain = ({prop}) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const change = async (e) => {
+    const [value , setValue] = useState(prop.book.shelf) ;
+    const change = (e) => {
+      setValue(e.target.value);
       UpdateBook(dispatch , prop.book , e.target.value);
-      const data = await SearchForBook(dispatch, prop.value);
-      prop.SetSearchBooks(data)
+      GetAllBooks(dispatch)
+      navigate('/home')
     }
   return (
     <li>
@@ -17,18 +22,21 @@ const Book = ({prop}) => {
             style={{
               width: 128,
               height: 192,
-              backgroundImage:
-                `url(${prop.url ? prop.url.thumbnail : 'none'})`,
+              backgroundImage: `url(${prop.url ? prop.url.thumbnail : "none"})`,
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select onChange={(e) => {
-              change(e)}} value="none">
+            <select
+              onChange={(e) => {
+                change(e);
+              }}
+              value={value}
+            >
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
               <option value="none">None</option>
-              <option value="move" disabled >
+              <option  value="move" disabled>
                 Move to...
               </option>
             </select>
@@ -40,4 +48,5 @@ const Book = ({prop}) => {
     </li>
   );
 };
-export default Book;
+
+export default BookMain;

@@ -1,5 +1,5 @@
 import { loading, success, failed ,AllMyBook  } from "../slices/Api.Slice";
-import { Sort } from '../help/Sorting'
+import { FilterBooks, Sort } from '../help/Sorting'
 import * as FetchApi from "../../BooksAPI";
 export const GetAllBooks = async (dispatch) => {
   dispatch(loading());
@@ -34,9 +34,10 @@ export const SearchForBook = async (dispatch, book) => {
     if(book) {
       try {
         const data = await FetchApi.search(book);
-          if(!data.error) {
-            book ?  dispatch(success()) : dispatch(failed()) ; 
-            return  book ? data : [] ;
+        const NewBooks = await FilterBooks(data)
+          if(NewBooks !== null) {
+            NewBooks ?  dispatch(success()) : dispatch(failed()) ; 
+            return  NewBooks ? NewBooks : [] ;
           } else {
             dispatch(failed());
             return [] ;
