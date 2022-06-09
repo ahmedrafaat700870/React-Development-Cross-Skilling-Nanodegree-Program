@@ -6,6 +6,7 @@ import Book from "./Book";
 const Search = () => {
   useEffect(() => {
     checkEmpty();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [value , SetValue] = useState('');
   const [SearchBooks, SetSearchBooks] = useState([]);
@@ -54,7 +55,6 @@ const Search = () => {
             !load &&
             !empty &&
             SearchBooks.map((book) => (
-              // book.shelf === 'none' && 
               <Book
                 key={book.id}
                 prop={{
@@ -63,7 +63,8 @@ const Search = () => {
                   author: book.authors,
                   book: book,
                   SetSearchBooks:SetSearchBooks,
-                  value:value
+                  value:value,
+                  shelf: book.shelf
                 }}
               />
             ))}

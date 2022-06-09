@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { UpdateBook , SearchForBook} from "../store/API/Boock.api";
 const Book = ({prop}) => {
     const dispatch = useDispatch();
+    const [value , setValue] = useState(prop.shelf);
     const change = async (e) => {
+      setValue(e.target.value);
       UpdateBook(dispatch , prop.book , e.target.value);
       const data = await SearchForBook(dispatch, prop.value);
       prop.SetSearchBooks(data)
@@ -23,7 +25,7 @@ const Book = ({prop}) => {
           ></div>
           <div className="book-shelf-changer">
             <select onChange={(e) => {
-              change(e)}} value="none">
+              change(e)}} value={value}>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>

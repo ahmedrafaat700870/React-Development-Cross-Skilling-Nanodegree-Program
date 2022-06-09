@@ -19,9 +19,29 @@ export const Sort = (dispatch, AllBooks) => {
 };
 export const FilterBooks = async (AllBooks ) => {
   if(!AllBooks.error) {
+    const Books = [] ;
     const MyBooks = await FetchApi.getAll()
-    const MyBooksIds = MyBooks.map(book => book.id)
-    return AllBooks.filter(book =>  !MyBooksIds.includes(book.id) )
+    MyBooks.forEach(el => {
+      AllBooks.forEach(book => {
+        if(book.id === el.id ) {
+          book.shelf = el.shelf ;
+          Books.push(book);          
+        }
+        else {
+          Books.push(book);          
+        }
+      })
+    })
+    const filter = Books.filter((item , pos , self) => {
+      return self.indexOf(item) === pos ;
+    }).filter(el => {
+      if(el.shelf) {
+        return el 
+      } else {
+        return el.shelf = 'none'
+      }
+    })
+    return filter ;
   } else {
     return null ;
   }
